@@ -11,6 +11,7 @@
 var expect = require('chai').expect;
 var MongoClient = require('mongodb');
 var ObjectId = require('mongodb').ObjectID;
+var Handler = require('../controllers/handler.js')
 
 const CONNECTION_STRING = process.env.DB; 
 MongoClient.connect(CONNECTION_STRING, function(err, db) {});
