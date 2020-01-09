@@ -33,7 +33,6 @@ suite('Functional Tests', function() {
           assert.equal(res.body.created_by, 'Functional Test - Every field filled in');
           assert.equal(res.body.assigned_to, 'Chai and Mocha');
           assert.equal(res.body.status_text, 'In QA');
-          assert.property(res.body, '_id');
           assert.isBoolean(res.body.open);
           assert.equal(res.body.open, true);
           done();
@@ -41,7 +40,13 @@ suite('Functional Tests', function() {
       });
       
       test('Required fields filled in', function(done) {
-        
+        chai.request(server)
+          .post('/api/issues/test')
+          .send({})
+          .end(function(err, res) {
+            done();
+          
+        })
       });
       
       test('Missing required fields', function(done) {
