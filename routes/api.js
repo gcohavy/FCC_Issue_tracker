@@ -27,7 +27,8 @@ module.exports = function (app) {
     
     .post(function (req, res){
       var project = req.params.project;
-      res.json({issue_title: project.issue_title, issue_text: project.issue_text, created_by: project.created_by});
+      var _id = Handler.generateId();
+      res.json({_id: _id, issue_title: project.issue_title, issue_text: project.issue_text, created_by: project.created_by});
   })
     
     .put(function (req, res){

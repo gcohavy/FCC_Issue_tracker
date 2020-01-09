@@ -7,6 +7,7 @@ dependencies:
   helmet: 3.21.2
   mocha: 7.0.0
   mongodb: 3.4.1
+  uniqid: 5.2.0
   zombie: 6.1.4
 packages:
   /@types/chai/4.2.7:
@@ -1986,6 +1987,10 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==
+  /uniqid/5.2.0:
+    dev: false
+    resolution:
+      integrity: sha512-LH8zsvwJ/GL6YtNfSOmMCrI9piraAUjBfw2MCvleNE6a4pVKJwXjG2+HWhkVeFcSg+nmaPKbMrMOoxwQluZ1Mg==
   /unpipe/1.0.0:
     dev: false
     engines:
@@ -2198,4 +2203,5 @@ specifiers:
   helmet: ^3.21.2
   mocha: ^7.0.0
   mongodb: ^3.4.1
+  uniqid: ^5.2.0
   zombie: ^6.1.4
