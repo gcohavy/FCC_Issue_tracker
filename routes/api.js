@@ -11,10 +11,8 @@
 var expect = require('chai').expect;
 var MongoClient = require('mongodb');
 var ObjectId = require('mongodb').ObjectID;
-var Handler = require('../controllers/handler.js')
 
-const CONNECTION_STRING = process.env.DB; 
-MongoClient.connect(CONNECTION_STRING, function(err, db) {});
+const CONNECTION_STRING = process.env.DB; // MongoClient.connect(CONNECTION_STRING, function(err, db) {});
 
 module.exports = function (app) {
 
@@ -27,8 +25,18 @@ module.exports = function (app) {
     
     .post(function (req, res){
       var project = req.params.project;
-      var _id = Handler.generateId();
-      res.json({_id: _id, issue_title: project.issue_title, issue_text: project.issue_text, created_by: project.created_by});
+      var issue = {
+        issue_title: req.body.issue_title,
+        issue_text: req.body.issue_text,
+        created_on: new Date(),
+        updated_on: new Date(),
+        created_by: req.body.created_by,
+        assigned_to: req.body.assigned_to || '',
+        status_text: req.body.status_text || '',
+        open: true
+      };
+      console.log(issue);
+      res.json(issue);
   })
     
     .put(function (req, res){
