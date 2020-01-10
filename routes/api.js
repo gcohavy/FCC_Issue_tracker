@@ -36,13 +36,19 @@ module.exports = function (app) {
         open: true
       };
       if(!issue.issue_title || !issue.issue_text || !issue.created_by){
+        console.log('Somethings not right');
         res.send('Missing required fields');
          }
       else {
+        console.log('ESTABILISHING DB CONNECTION');
         MongoClient.connect(CONNECTION_STRING, function(err, db) {
+          console.log('Connection acquired');
           var collection = db.collection(project);
+          console.log('Something: ' + collection);
           collection.insertOne(issue, function(err,doc){
+            console.log(doc);
             issue._id = doc.insertedId;
+            console.log('in the database');
             res.json(issue);
           });      
         });
