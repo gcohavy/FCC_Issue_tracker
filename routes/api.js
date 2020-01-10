@@ -44,7 +44,7 @@ module.exports = function (app) {
         MongoClient.connect(CONNECTION_STRING, function(err, db) {
           console.log('Connection acquired');
           var collection = db.collection(project);
-          console.log('Something: ' + collection);
+          if(!collection) console.log('collection does not exists');
           collection.insertOne(issue, function(err,doc){
             console.log(doc);
             issue._id = doc.insertedId;
