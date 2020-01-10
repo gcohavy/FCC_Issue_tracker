@@ -35,8 +35,19 @@ module.exports = function (app) {
         status_text: req.body.status_text || '',
         open: true
       };
-      console.log(issue);
-      res.json(issue);
+      if(!issue.issue_title || !issue.issue_text || !issue.created_by){
+        res.send('Missing required fields');
+         }
+      else {
+        MongoClient.connect(CONNECTION_STRING, function(err, db) {
+          var collection = db.collection(project);
+          collection.insertOne(err,doc){
+            issue._id = doc.insertedId;
+          }
+          res.json(issue);
+        });
+      }
+      
   })
     
     .put(function (req, res){
