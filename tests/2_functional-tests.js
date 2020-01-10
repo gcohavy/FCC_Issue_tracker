@@ -28,13 +28,15 @@ suite('Functional Tests', function() {
           status_text: 'In QA'
         })
         .end(function(err, res){
-          assert.equal(res.status, 200);
+ //         assert.equal(res.status, 200);
           assert.equal(res.body.issue_title, 'Title');
           assert.equal(res.body.created_by, 'Functional Test - Every field filled in');
           assert.equal(res.body.assigned_to, 'Chai and Mocha');
           assert.equal(res.body.status_text, 'In QA');
           assert.isBoolean(res.body.open);
           assert.equal(res.body.open, true);
+          assert.property(res.body, '_id');
+/* */
           done();
         });
       });

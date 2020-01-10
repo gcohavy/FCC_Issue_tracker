@@ -12,7 +12,7 @@ var expect = require('chai').expect;
 var MongoClient = require('mongodb');
 var ObjectId = require('mongodb').ObjectID;
 
-const CONNECTION_STRING = process.env.DB; // MongoClient.connect(CONNECTION_STRING, function(err, db) {});
+const CONNECTION_STRING = process.env.DB; 
 
 module.exports = function (app) {
 
@@ -41,13 +41,12 @@ module.exports = function (app) {
       else {
         MongoClient.connect(CONNECTION_STRING, function(err, db) {
           var collection = db.collection(project);
-          collection.insertOne(err,doc){
+          collection.insertOne(issue, function(err,doc){
             issue._id = doc.insertedId;
-          }
-          res.json(issue);
+            res.json(issue);
+          });      
         });
-      }
-      
+      }  
   })
     
     .put(function (req, res){
