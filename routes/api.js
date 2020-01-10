@@ -41,15 +41,18 @@ module.exports = function (app) {
          }
       else {
         console.log('ESTABILISHING DB CONNECTION');
-        MongoClient.connect(CONNECTION_STRING, function(err, db) {
+        MongoClient.connect(CONNECTION_STRING, function(err, client) {
+          var db = client.db('mydb');
           console.log('Connection acquired');
           var collection = db.collection(project);
           if(!collection) console.log('collection does not exists');
           collection.insertOne(issue, function(err,doc){
+            if(err) throw err;
             console.log(doc);
             issue._id = doc.insertedId;
             console.log('in the database');
             res.json(issue);
+            client.close();
           });      
         });
       }  
