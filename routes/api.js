@@ -41,9 +41,10 @@ module.exports = function (app) {
          }
       else {
         console.log('ESTABILISHING DB CONNECTION');
-        MongoClient.connect(CONNECTION_STRING, function(err, client) {
+        MongoClient.connect(CONNECTION_STRING, { useNewUrlParser: true }, function(err, client) {
+          if(err) console.log(err);
           console.log('Connection acquired');
-          var db = client.db('cluster0-yyhj2');
+          var db = client.db('cluster0');
           console.log('made it');
           var collection = db.collection(project);
           collection.insertOne(issue, function(err,doc){
