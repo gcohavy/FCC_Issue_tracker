@@ -29,14 +29,14 @@ suite('Functional Tests', function() {
         })
         .end(function(err, res){
           assert.equal(res.status, 200);
-/*           assert.equal(res.body.issue_title, 'Title');
+          assert.equal(res.body.issue_title, 'Title');
           assert.equal(res.body.created_by, 'Functional Test - Every field filled in');
           assert.equal(res.body.assigned_to, 'Chai and Mocha');
           assert.equal(res.body.status_text, 'In QA');
           assert.isBoolean(res.body.open);
           assert.equal(res.body.open, true);
           assert.property(res.body, '_id');
-*/
+/**/
           done();
         });
       });
@@ -44,8 +44,17 @@ suite('Functional Tests', function() {
       test('Required fields filled in', function(done) {
         chai.request(server)
           .post('/api/issues/test')
-          .send({})
+          .send({
+            issue_title: 'Title',
+            issue_text: 'Text',
+            created_by: 'Creator'
+          })
           .end(function(err, res) {
+            assert.equal(res.status, 200);
+            assert.equal(res.body.issue_title, 'Title');
+            assert.equal(res.body.issue_text, 'Text');
+            assert.equal(res.body.created_by, 'Creator');
+            assert.equal(res.body.open, true);
             done();
           
         })
