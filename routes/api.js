@@ -35,6 +35,8 @@ module.exports = function (app) {
         status_text: req.body.status_text || '',
         open: true
       };
+    console.log(process.env);
+    console.log(CONNECTION_STRING);
       if(!issue.issue_title || !issue.issue_text || !issue.created_by){
         console.log('Somethings not right');
         res.send('Missing required fields');
@@ -43,16 +45,7 @@ module.exports = function (app) {
         console.log('ESTABILISHING DB CONNECTION');
         MongoClient.connect(CONNECTION_STRING, { useNewUrlParser: true }, function(err, client) {
           if(err) console.log(err);
-          console.log('Connection acquired');
-          var db = client.db('cluster0');
-          console.log('made it');
-          var collection = db.collection(project);
-          collection.insertOne(issue, function(err,doc){
-            if(err) throw err;
-            issue._id = doc.insertedId;
-            res.json(issue);
-            client.close();
-          });      
+          console.log('Connection acquired');  
         });
       }  
   })
