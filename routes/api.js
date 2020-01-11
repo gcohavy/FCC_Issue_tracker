@@ -9,7 +9,7 @@
 'use strict';
 
 var expect = require('chai').expect;
-var MongoClient = require('mongodb');
+var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 
 const CONNECTION_STRING = process.env.DB; 
@@ -42,7 +42,8 @@ module.exports = function (app) {
       else {
         console.log('ESTABILISHING DB CONNECTION');
         MongoClient.connect(CONNECTION_STRING, function(err, client) {
-          var db = client.db('mydb');
+          console.log(client);
+          var db = client.db();
           console.log('Connection acquired');
           var collection = db.collection(project);
           if(!collection) console.log('collection does not exists');
