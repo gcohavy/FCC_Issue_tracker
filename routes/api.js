@@ -58,7 +58,11 @@ module.exports = function (app) {
     .put(function (req, res){
       var project = req.params.project;
       var id = req.body._id;
+      delete req.body._id;
       var updates = req.body;
+      for (var thing in updates) if (!updates[thing]) delete updates[thing];
+      if (updates.open) updates.open = String(updates.open) == 'true';
+      
     })
     
     .delete(function (req, res){

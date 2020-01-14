@@ -13,6 +13,8 @@ var server = require("../server");
 
 chai.use(chaiHttp);
 
+var _ida;
+
 suite("Functional Tests", function() {
   suite("POST /api/issues/{project} => object with issue data", function() {
     test("Every field filled in", function(done) {
@@ -35,6 +37,7 @@ suite("Functional Tests", function() {
           assert.isBoolean(res.body.open);
           assert.equal(res.body.open, true);
           assert.property(res.body, "_id");
+          _ida = res.body._id;
           /**/
           done();
         });
@@ -78,7 +81,18 @@ suite("Functional Tests", function() {
   });
 
   suite("PUT /api/issues/{project} => text", function() {
-    test("No body", function(done) {});
+    test("No body", function(done) {
+      chai
+        .request(server)
+        .put('/api/issues/test')
+        .send({
+          _id: _ida
+        })
+        .end((err, res) => {
+          assert.equal(res.status, 200);
+          assert.equal(res.text, 'no updated field sent');
+        })
+    });
 
     test("One field to update", function(done) {});
 
