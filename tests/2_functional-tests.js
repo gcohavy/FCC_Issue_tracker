@@ -103,6 +103,7 @@ suite("Functional Tests", function() {
           issue_text: 'will fixit soon'
         })
         .end((err, res) => {
+          console.log(res.body._id);
           assert.equal(res.status, 200);
         })
     });
