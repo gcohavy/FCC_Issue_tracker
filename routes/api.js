@@ -62,7 +62,8 @@ module.exports = function (app) {
       var updates = req.body;
       for (var thing in updates) if (!updates[thing]) delete updates[thing];
       if (updates.open) updates.open = String(updates.open) == 'true';
-      
+      if (Object.keys(updates).length===0) res.send('No updated field sent');
+      console.log(updates);
     })
     
     .delete(function (req, res){

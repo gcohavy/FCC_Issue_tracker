@@ -90,7 +90,7 @@ suite("Functional Tests", function() {
         })
         .end((err, res) => {
           assert.equal(res.status, 200);
-          assert.equal(res.text, 'no updated field sent');
+          assert.equal(res.text, 'No updated field sent');
         })
     });
 
