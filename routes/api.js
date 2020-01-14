@@ -44,8 +44,9 @@ module.exports = function (app) {
         MongoClient.connect(CONNECTION_STRING, { useNewUrlParser: true,useUnifiedTopology: true },  function(err, client) {
           if(err) console.log(err);
        //   console.log('Connection acquired');  
-          var db = client.db(project);
-          db.insertOne(issue, function(err, doc) {
+          var db = client.db('project');
+          var collection = db.collection(project)
+          collection.insertOne(issue, function(err, doc) {
             issue._id = doc.insertedId;
             res.json(issue);
             client.close();
@@ -66,8 +67,9 @@ module.exports = function (app) {
       updates.updated_on = new Date();
       MongoClient.connect(CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client)=> {
         console.log('Connection acquired');
-        var db = client.db(project);
-          db.findOneAndUpdate({_id:new ObjectId(id)},[['_id',1]],{$set: updates},{new: true},function(err,doc){
+        var db = client.db('project');
+        var collection = db.collection(project);
+          collection.findOneAndUpdate({_id: id},updates,function(err,doc){
             (!err) ? res.send('successfully updated') : res.send('could not update '+id+' '+err);
             console.log(doc.value);
           });

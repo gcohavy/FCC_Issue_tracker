@@ -94,7 +94,18 @@ suite("Functional Tests", function() {
         })
     });
 
-    test("One field to update", function(done) {});
+    test("One field to update", function(done) {
+      chai
+        .request(server)
+        .put('/api/issues/test')
+        .send({
+          _id: _ida,
+          issue_text: 'will fixit soon'
+        })
+        .end((err, res) => {
+          assert.equal(res.status, 200);
+        })
+    });
 
     test("Multiple fields to update", function(done) {});
   });
