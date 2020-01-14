@@ -29,10 +29,7 @@ suite("Functional Tests", function() {
         .end(function(err, res) {
           assert.equal(res.status, 200);
           assert.equal(res.body.issue_title, "Title");
-          assert.equal(
-            res.body.created_by,
-            "Functional Test - Every field filled in"
-          );
+          assert.equal(res.body.created_by,"Functional Test - Every field filled in" );
           assert.equal(res.body.assigned_to, "Chai and Mocha");
           assert.equal(res.body.status_text, "In QA");
           assert.isBoolean(res.body.open);
@@ -64,7 +61,20 @@ suite("Functional Tests", function() {
         });
     });
 
-    test("Missing required fields", function(done) {});
+    test("Missing required fields", function(done) {
+      chai
+        .request(server)
+        .post('/api/issues/test')
+        .send({
+          issue_title: 'Title',
+          created_by: 'Someone'
+        })
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.text, 'Missing required fields');
+          done();
+        })
+    });
   });
 
   suite("PUT /api/issues/{project} => text", function() {

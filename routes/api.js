@@ -36,14 +36,14 @@ module.exports = function (app) {
         open: true
       };
       if(!issue.issue_title || !issue.issue_text || !issue.created_by){
-        console.log('Somethings not right');
+     //   console.log('Somethings not right');
         res.send('Missing required fields');
          }
       else {
-        console.log('ESTABILISHING DB CONNECTION');
+      //  console.log('ESTABILISHING DB CONNECTION');
         MongoClient.connect(CONNECTION_STRING, { useNewUrlParser: true,useUnifiedTopology: true },  function(err, client) {
           if(err) console.log(err);
-          console.log('Connection acquired');  
+       //   console.log('Connection acquired');  
           var db = client.db('test');
           var collection=db.collection(project);
           collection.insertOne(issue, function(err, doc) {
@@ -57,7 +57,8 @@ module.exports = function (app) {
     
     .put(function (req, res){
       var project = req.params.project;
-      
+      var id = req.body._id;
+      var updates = req.body;
     })
     
     .delete(function (req, res){
