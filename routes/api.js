@@ -74,7 +74,7 @@ module.exports = function (app) {
         var collection = db.collection(project);
           collection.findOneAndUpdate({_id: id},{$set: updates},function(err,doc){
             (!err) ? res.send('successfully updated') : res.send('could not update '+id+' '+err);
-            console.log(doc);
+           // console.log(doc);
             client.close();
           });
       })
