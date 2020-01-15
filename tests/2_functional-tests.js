@@ -105,9 +105,10 @@ suite("Functional Tests", function() {
           issue_text: 'will fixit soon'
         })
         .end((err, res) => {
-        //  console.log(_ida);
+        //  console.log(res.text);
           assert.equal(res.status, 200);
           assert.equal(res.text, 'successfully updated');
+          console.log(res.text);
           done();
         })
     });
@@ -121,9 +122,9 @@ suite("Functional Tests", function() {
           assigned_to: 'Your Mom'
         })
         .end((err, res)=>{
+     //     console.log(res.text);
           assert.equal(res.status, 200);
-          assert.equal(res.body.issue_text, 'Theres still an issue');
-          assert.equal(res.body.assigned_to, 'Your Mom');
+          assert.equal(res.text, 'successfully updated');
           done();
         })
     });
