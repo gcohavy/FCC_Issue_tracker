@@ -62,16 +62,16 @@ module.exports = function (app) {
       var updates = req.body;
       for (var thing in updates) if (!updates[thing]) delete updates[thing];
       if (updates.open) updates.open = String(updates.open) == 'true';
-      if (Object.keys(updates).length===0) res.send('No updated field sent');
-      console.log(updates);
+  //    console.log(Object.entries(updates).length===0);
+      if (Object.entries(updates).length===0) res.send('No updated field sent');
       updates.updated_on = new Date();
       MongoClient.connect(CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client)=> {
-        console.log('Connection acquired');
+ //       console.log('Connection acquired');
         var db = client.db('project');
         var collection = db.collection(project);
           collection.findOneAndUpdate({_id: id},updates,function(err,doc){
             (!err) ? res.send('successfully updated') : res.send('could not update '+id+' '+err);
-            console.log(doc.value);
+    //        console.log(doc.value);
           });
       })
       

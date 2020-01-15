@@ -89,6 +89,7 @@ suite("Functional Tests", function() {
           _id: _ida
         })
         .end((err, res) => {
+          console.log(_ida);
           assert.equal(res.status, 200);
           assert.equal(res.text, 'No updated field sent');
         })
@@ -103,7 +104,7 @@ suite("Functional Tests", function() {
           issue_text: 'will fixit soon'
         })
         .end((err, res) => {
-          console.log(res.body._id);
+          //console.log(res.body._id);
           assert.equal(res.status, 200);
         })
     });
