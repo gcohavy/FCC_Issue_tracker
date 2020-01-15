@@ -63,7 +63,10 @@ module.exports = function (app) {
       for (var thing in updates) if (!updates[thing]) delete updates[thing];
       if (updates.open) updates.open = String(updates.open) == 'true';
   //    console.log(Object.entries(updates).length===0);
-      if (Object.entries(updates).length===0) res.send('No updated field sent');
+      if (Object.entries(updates).length===0) {
+        console.log('sending');
+        res.send('No updated field sent');
+      }
       updates.updated_on = new Date();
       MongoClient.connect(CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client)=> {
  //       console.log('Connection acquired');
