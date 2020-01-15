@@ -105,9 +105,9 @@ suite("Functional Tests", function() {
           issue_text: 'will fixit soon'
         })
         .end((err, res) => {
-          console.log(_ida);
+        //  console.log(_ida);
           assert.equal(res.status, 200);
-          assert.equal(res.body.issue_text, 'will fixit soon');
+          assert.equal(res.text, 'successfully updated');
           done();
         })
     });

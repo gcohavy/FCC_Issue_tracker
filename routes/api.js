@@ -72,10 +72,10 @@ module.exports = function (app) {
  //       console.log('Connection acquired');
         var db = client.db('project');
         var collection = db.collection(project);
-          collection.findOneAndUpdate({_id: id},updates,function(err,doc){
-            if(err) console.log(err);
+          collection.findOneAndUpdate({_id: id},{$set: updates},function(err,doc){
             (!err) ? res.send('successfully updated') : res.send('could not update '+id+' '+err);
-    //        console.log(doc.value);
+            console.log(doc);
+            client.close();
           });
       })
       
