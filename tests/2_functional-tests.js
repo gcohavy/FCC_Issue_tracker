@@ -108,7 +108,6 @@ suite("Functional Tests", function() {
         //  console.log(res.text);
           assert.equal(res.status, 200);
           assert.equal(res.text, 'successfully updated');
-          console.log(res.text);
           done();
         })
     });
