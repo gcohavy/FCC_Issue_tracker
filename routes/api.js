@@ -64,7 +64,7 @@ module.exports = function (app) {
       if (updates.open) updates.open = String(updates.open) == 'true';
   //    console.log(Object.entries(updates).length===0);
       if (Object.entries(updates).length===0) {
-        console.log('sending');
+       // console.log('no entries');
         res.send('No updated field sent');
       }
       updates.updated_on = new Date();
@@ -73,6 +73,7 @@ module.exports = function (app) {
         var db = client.db('project');
         var collection = db.collection(project);
           collection.findOneAndUpdate({_id: id},updates,function(err,doc){
+            if(err) console.log(err);
             (!err) ? res.send('successfully updated') : res.send('could not update '+id+' '+err);
     //        console.log(doc.value);
           });

@@ -89,9 +89,10 @@ suite("Functional Tests", function() {
           _id: _ida
         })
         .end((err, res) => {
-          console.log(_ida);
+        //  console.log(_ida);
           assert.equal(res.status, 200);
           assert.equal(res.text, 'No updated field sent');
+          done();
         })
     });
 
@@ -104,12 +105,28 @@ suite("Functional Tests", function() {
           issue_text: 'will fixit soon'
         })
         .end((err, res) => {
-          //console.log(res.body._id);
+          console.log(_ida);
           assert.equal(res.status, 200);
+          assert.equal(res.body.issue_text, 'will fixit soon');
+          done();
         })
     });
 
-    test("Multiple fields to update", function(done) {});
+    test("Multiple fields to update", function(done) {
+      chai
+        .request(server)
+        .send({
+          _id: _ida,
+          issue_text: 'Theres still an issue',
+          assigned_to: 'Your Mom'
+        })
+        .end((err, res)=>{
+          assert.equal(res.status, 200);
+          assert.equal(res.body.issue_text, 'Theres still an issue');
+          assert.equal(res.body.assigned_to, 'Your Mom');
+          done();
+        })
+    });
   });
 
   suite(
