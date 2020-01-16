@@ -101,7 +101,7 @@ module.exports = function (app) {
       MongoClient.connect(CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client)=> {
         var db = client.db('project');
         var collection=db.collection(project);
-        collection.findOneAndDelete({_id: req.body._id}, (err, doc)=>{
+        collection.findOneAndDelete({_id: id}, (err, doc)=>{
        //   console.log('made it inside');
           if(!err){
             console.log('no error found: ' + id);
