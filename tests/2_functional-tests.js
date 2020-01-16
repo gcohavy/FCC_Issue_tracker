@@ -106,15 +106,21 @@ suite("Functional Tests", function() {
         })
         .end((err, res) => {
         //  console.log(res.text);
-          assert.equal(res.status, 200);
-          assert.equal(res.text, 'successfully updated');
-          done();
+          if(err) console.log(err);
+          else if (res) {
+            console.log('Res is defined');
+            assert.equal(res.status, 200);
+            assert.equal(res.text, 'successfully updated');
+            done();
+          }
+          else console.log('Res is undefined');
         })
     });
 
     test("Multiple fields to update", function(done) {
       chai
         .request(server)
+        .put('/api/issues/test')
         .send({
           _id: _ida,
           issue_text: 'Theres still an issue',
@@ -180,9 +186,12 @@ suite("Functional Tests", function() {
               _id: _ida
             })
         .end((err,res)=> {
-          assert.equal(res.status, 200);
-          assert.equal(res.text, '_id error');
-          done();
+          if(err) console.log(err);
+          else if (res) {
+            assert.equal(res.status, 200);
+            assert.equal(res.text, '_id error');
+            done();
+          }
         })
     });
   });
