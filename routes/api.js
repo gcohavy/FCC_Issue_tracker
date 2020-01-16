@@ -44,7 +44,7 @@ module.exports = function (app) {
       };
       if(!issue.issue_title || !issue.issue_text || !issue.created_by){
      //   console.log('Somethings not right');
-        res.send('Missing required fields');
+        return res.send('Missing required fields');
          }
       else {
       //  console.log('ESTABILISHING DB CONNECTION');
@@ -55,7 +55,7 @@ module.exports = function (app) {
           var collection = db.collection(project)
           collection.insertOne(issue, function(err, doc) {
             issue._id = doc.insertedId;
-            res.json(issue);
+            return res.json(issue);
             client.close();
           });
         });
@@ -97,22 +97,20 @@ module.exports = function (app) {
       var project = req.params.project;
       var id;
       !req.body._id ? res.send('_id error') : id = req.body._id;
-      console.log('delete ' + id);
+    //  console.log('delete ' + id);
       MongoClient.connect(CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client)=> {
         var db = client.db('project');
         var collection=db.collection(project);
         collection.findOneAndDelete({_id: req.body._id}, (err, doc)=>{
-          console.log('made it inside');
+       //   console.log('made it inside');
           if(!err){
-            res.send('deleted ' + id);
-            client.close();
+            return res.send('deleted ' + id);
           }
           else {
-            res.send('Could not delete ' + id);
-            console.log('issue deleting ' + id +':' + err);
+            return res.send('Could not delete ' + id);
           }
         })
-      });
+      }); 
       
     });
     

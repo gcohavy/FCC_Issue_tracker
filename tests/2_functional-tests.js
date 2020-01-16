@@ -182,7 +182,30 @@ suite("Functional Tests", function() {
         });
       });
 
-      test("Multiple filters (test for multiple fields you know will be in the db for a return)", function(done) {});
+      test("Multiple filters (test for multiple fields you know will be in the db for a return)", function(done) {
+        chai
+        .request(server)
+        .get('/api/issues/test')
+        .query({
+          issue_title: 'Title',
+          assigned_to: 'Chai and Mocha'
+        })
+        .end(function(err, res){
+          assert.equal(res.status, 200);
+          assert.property(res.body[0], 'issue_title');
+          assert.property(res.body[0], 'issue_text');
+          assert.property(res.body[0], 'created_on');
+          assert.property(res.body[0], 'updated_on');
+          assert.property(res.body[0], 'created_by');
+          assert.property(res.body[0], 'assigned_to');
+          assert.property(res.body[0], 'open');
+          assert.property(res.body[0], 'status_text');
+          assert.property(res.body[0], '_id');
+          assert.equal(res.body[0].assigned_to, 'Chai and Mocha');
+          assert.equal(res.body[0].issue_title, 'Title');
+          done();
+        });
+      });
     }
   );
 
@@ -200,19 +223,16 @@ suite("Functional Tests", function() {
     });
 
     test("Valid _id", function(done) {
-            chai
+        chai
         .request(server)
         .delete('/api/issues/test')
         .send({
               _id: _ida
             })
         .end((err,res)=> {
-          if(err) console.log(err);
-          else if (res) {
             assert.equal(res.status, 200);
-            assert.equal(res.text, '_id error');
+            assert.equal(res.text, 'deleted ' + _ida);
             done();
-          }
         })
     });
   });
