@@ -108,7 +108,7 @@ suite("Functional Tests", function() {
         //  console.log(res.text);
           if(err) console.log(err);
           else if (res) {
-            console.log('Res is defined');
+            console.log('Res is defined. res.text: ' + res.text);
             assert.equal(res.status, 200);
             assert.equal(res.text, 'successfully updated');
             done();

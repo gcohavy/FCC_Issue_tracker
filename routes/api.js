@@ -65,7 +65,7 @@ module.exports = function (app) {
   //    console.log(Object.entries(updates).length===0);
       if (Object.entries(updates).length===0) {
        // console.log('no entries');
-        res.send('No updated field sent');
+        return res.send('No updated field sent');
       }
       updates.updated_on = new Date();
       MongoClient.connect(CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client)=> {
@@ -74,10 +74,10 @@ module.exports = function (app) {
         var collection = db.collection(project);
           collection.findOneAndUpdate({_id: id},{$set: updates},function(err,doc){
             if (!err) {
-              res.send('successfully updated');
+              return res.send('successfully updated');
             }
             else {
-              res.send('could not update '+id+' '+err);
+              return res.send('could not update '+id+' '+err);
             }
            // console.log(doc);
             client.close();
