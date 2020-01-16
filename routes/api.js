@@ -85,7 +85,22 @@ module.exports = function (app) {
       var project = req.params.project;
       var id;
       !req.body._id ? res.send('_id error') : id = req.body._id;
-    console.log('delete ' + id);
+      console.log('delete ' + id);
+      MongoClient.connect(CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client)=> {
+        var db = client.db('project');
+        var collection=db.collection(project);
+        collection.findOneAndDelete({_id: req.body._id}, (err, doc)=>{
+          console.log('made it inside');
+          if(!err){
+            res.send('deleted ' + id);
+            client.close();
+          }
+          else {
+            res.send('Could not delete ' + id);
+            console.log('issue deleting ' + id +':' + err);
+          }
+        })
+      });
       
     });
     

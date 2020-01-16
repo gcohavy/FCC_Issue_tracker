@@ -176,7 +176,9 @@ suite("Functional Tests", function() {
             chai
         .request(server)
         .delete('/api/issues/test')
-        .send({})
+        .send({
+              _id: _ida
+            })
         .end((err,res)=> {
           assert.equal(res.status, 200);
           assert.equal(res.text, '_id error');
