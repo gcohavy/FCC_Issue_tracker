@@ -104,9 +104,11 @@ module.exports = function (app) {
         collection.findOneAndDelete({_id: req.body._id}, (err, doc)=>{
        //   console.log('made it inside');
           if(!err){
+            console.log('no error found: ' + id);
             return res.send('deleted ' + id);
           }
           else {
+            console.log('error found');
             return res.send('Could not delete ' + id);
           }
         })

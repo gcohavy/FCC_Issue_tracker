@@ -230,6 +230,7 @@ suite("Functional Tests", function() {
               _id: _ida
             })
         .end((err,res)=> {
+            console.log('ida: ' + _ida);
             assert.equal(res.status, 200);
             assert.equal(res.text, 'deleted ' + _ida);
             done();
