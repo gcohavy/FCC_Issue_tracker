@@ -3,9 +3,10 @@
 
 Project Issue Tracker
 
-1) SET NODE_ENV to `test` without quotes and set DB to your mongo connection string in .env file
-2) Complete the project in `routes/api.js` or by creating a handler/controller
-3) You will add any security features to `server.js`
-4) You will create all of the functional tests in `tests/2_functional-tests.js`
+Using node and express
+Connected to MongoDB database and issued GET, POST, PUT and DELETE commands to track user inputs
+Built functional tests using Chai
+
+note** final delete test runs twice, the first time not receiving a proper _id since the database is clear. I left it that way.
 
 
