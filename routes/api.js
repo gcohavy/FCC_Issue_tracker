@@ -83,6 +83,9 @@ module.exports = function (app) {
     
     .delete(function (req, res){
       var project = req.params.project;
+      var id;
+      !req.body._id ? res.send('_id error') : id = req.body._id;
+    console.log('delete ' + id);
       
     });
     
