@@ -20,7 +20,14 @@ module.exports = function (app) {
   
     .get(function (req, res){
       var project = req.params.project;
-      
+      var query = req.query;
+      MongoClient.connect(CONNECTION_STRING, { useNewUrlParser: true,useUnifiedTopology: true },  function(err, client) {
+        var db = client.db('project');
+        var collection = db.collection(project);
+        collection.find(query).toArray((err,docs)=>{
+          return res.json(docs);
+        })
+      })      
     })
     
     .post(function (req, res){
